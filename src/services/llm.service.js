@@ -149,9 +149,10 @@ Respond keeping structure in English but content in ${language}.`;
         console.log(`🤖 Generating itinerary using Groq API with Multi-Model Fallback...`);
         // 🔥 TEEN POWERFUL GROQ MODELS ARRAY MEIN DAAL DIYE 🔥
         const modelsToTry = [
-            "llama-3.3-70b-versatile", 
+            "llama-3.3-8b-versatile", 
             "llama-3.1-8b-instant", 
-            "gemma2-9b-it"
+            "gemma-7b-it",
+            "mixtral-8x7b-32768"
         ];
         
         // Loop chalega har model par jab tak success na mil jaye
