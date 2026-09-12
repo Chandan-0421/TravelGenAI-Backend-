@@ -147,13 +147,15 @@ Format EXACTLY like this, in this exact order:
 Respond keeping structure in English but content in ${language}.`;
 
         console.log(`🤖 Generating itinerary using Groq API with Multi-Model Fallback...`);
-        // 🔥 TEEN POWERFUL GROQ MODELS ARRAY MEIN DAAL DIYE 🔥
-        const modelsToTry = [
-            "llama-3.3-8b-versatile", 
-            "llama-3.1-8b-instant", 
-            "gemma-7b-it",
-            "mixtral-8x7b-32768"
-        ];
+        // Old Groq model names were retired / unavailable on many API keys.
+        // Use newer, commonly supported names instead.
+        const modelsToTry = Array.from(new Set([
+            process.env.GROQ_MODEL,
+            "llama-3.3-70b-versatile",
+            "llama-3.1-70b-versatile",
+            "gemma2-9b-it",
+            "mistral-saba-24b"
+        ].filter(Boolean)));
         
         // Loop chalega har model par jab tak success na mil jaye
         for (const modelName of modelsToTry) {
@@ -185,7 +187,11 @@ Respond keeping structure in English but content in ${language}.`;
             }
         }
 
-        if (!responseContent) throw new Error("All Groq API models failed to generate a response. Please try again.");
+        if (!responseContent) {
+            throw new Error(
+              "All Groq API models failed to generate a response. Please verify your GROQ_API_KEY and confirm the selected models are available on your account."
+            );
+        }
         
         console.log(`✅ Response generated successfully using: Groq (${successfulModel})`);
 
